@@ -89,7 +89,7 @@ fig_comparison.add_trace(go.Scatter(x=stock_data.index, y=comparison_data[select
                                    mode='lines', name=f'{selected_stock} (Analysis)'))
 
 # Compare with other selected stocks
-compare_stock = st.sidebar.multiselect('Compare with other stocks', [selected_stock])
+compare_stock = st.sidebar.multiselect('Compare with other stocks', sp500_tickers)
 
 for stock in compare_stock:
     compare_data = yf.download(stock, start=start_date, end=end_date, interval=data_interval)
