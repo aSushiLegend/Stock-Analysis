@@ -35,6 +35,7 @@ add_bollinger = st.sidebar.checkbox('Add Bollinger Bands')
 add_pe_ratio_chart = st.sidebar.checkbox('Add P/E Ratio Bar Chart')
 add_beta_chart = st.sidebar.checkbox('Add Beta Bar Chart')
 add_volume_chart = st.sidebar.checkbox('Add Volume Comparison')
+compare_with_sp500 = st.sidebar.checkbox('Compare with S&P 500 (^GSPC)')
 chart_type = st.sidebar.selectbox('Select chart type', ['Line', 'Candlestick'], index=0)  # Default: Line
 
 # Add 20 days SMA to the first graph
@@ -88,13 +89,20 @@ fig_comparison.add_trace(go.Scatter(x=stock_data.index, y=comparison_data[select
                                    mode='lines', name=f'{selected_stock} (Analysis)'))
 
 # Compare with other selected stocks
-compare_stock = st.sidebar.multiselect('Compare with other stocks', sp500_tickers)
+compare_stock = st.sidebar.multiselect('Compare with other stocks', [selected_stock])
 
 for stock in compare_stock:
     compare_data = yf.download(stock, start=start_date, end=end_date, interval=data_interval)
     comparison_data[stock] = (compare_data['Close'] / compare_data['Close'].iloc[0] - 1) * 100
     fig_comparison.add_trace(go.Scatter(x=compare_data.index, y=comparison_data[stock],
                                        mode='lines', name=f'{stock} (Comparison)'))
+
+# Compare with S&P 500 (^GSPC)
+if compare_with_sp500:
+    sp500_data = yf.download('^GSPC', start=start_date, end=end_date, interval=data_interval)
+    comparison_data['^GSPC'] = (sp500_data['Close'] / sp500_data['Close'].iloc[0] - 1) * 100
+    fig_comparison.add_trace(go.Scatter(x=sp500_data.index, y=comparison_data['^GSPC'],
+                                       mode='lines', name='S&P 500 (^GSPC)'))
 
 # Plot P/E Ratio Bar Chart on the second graph
 if add_pe_ratio_chart:
