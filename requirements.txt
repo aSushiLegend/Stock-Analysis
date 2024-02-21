@@ -3,3 +3,4 @@ cufflinks
 plotly
 yfinance
 blpapi
+xbbg
