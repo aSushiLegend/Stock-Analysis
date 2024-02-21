@@ -6,6 +6,10 @@ import pandas as pd
 # Set up Streamlit layout
 st.title('S&P 500 Stock Analyzer')
 
+ticker_object = yf.Ticker('AAPL')
+balancesheet = ticker_object.balancesheet
+print(balancesheet)
+
 # Get S&P 500 companies list
 sp500_tickers = pd.read_html('https://en.wikipedia.org/wiki/List_of_S%26P_500_companies')[0]
 sp500_symbols = sp500_tickers['Symbol'].tolist()
