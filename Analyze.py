@@ -6,10 +6,6 @@ import pandas as pd
 # Set up Streamlit layout
 st.title('S&P 500 Stock Analyzer')
 
-ticker_object = yf.Ticker('AAPL')
-balancesheet = ticker_object.balancesheet
-print(balancesheet)
-
 # Get S&P 500 companies list
 sp500_tickers = pd.read_html('https://en.wikipedia.org/wiki/List_of_S%26P_500_companies')[0]
 sp500_symbols = sp500_tickers['Symbol'].tolist()
@@ -56,9 +52,9 @@ if add_bollinger:
         window=20).std()
 
 if add_balance_sheet:
-    bs_ticker = yf.Ticker(selected_stock)
-    bs_data = bs_ticker.balance_sheet()
-    bs_df = pd.DataFrame(bs_data)
+    ticker_object = yf.Ticker('AAPL')
+    balancesheet = ticker_object.balancesheet
+    bs_df = df.DataFrame(balancesheet)
     st.table(bs_df)
 
 # Plot selected stock and analysis on the first graph
