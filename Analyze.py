@@ -35,6 +35,7 @@ add_bollinger = st.sidebar.checkbox('Add Bollinger Bands')
 add_pe_ratio_chart = st.sidebar.checkbox('Add P/E Ratio Bar Chart')
 add_beta_chart = st.sidebar.checkbox('Add Beta Bar Chart')
 add_volume_chart = st.sidebar.checkbox('Add Volume Comparison')
+add_dividends = st.sidebar.checkbox('Add Dividend Payments')
 compare_with_sp500 = st.sidebar.checkbox('Compare with S&P 500 (^GSPC)')
 chart_type = st.sidebar.selectbox('Select chart type', ['Line', 'Candlestick'], index=0)  # Default: Line
 
