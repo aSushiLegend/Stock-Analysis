@@ -30,13 +30,14 @@ stock_data = yf.download(selected_stock, start=start_date, end=end_date, interva
 comparison_data = pd.DataFrame(index=stock_data.index)
 
 # Add options for moving average, Bollinger Bands, P/E Ratio Bar Chart, Beta Bar Chart, Volume Comparison, and Chart Type
+chart_type = st.sidebar.selectbox('Select chart type', ['Line', 'Candlestick'], index=0)  # Default: Line
 add_sma = st.sidebar.checkbox('Add 20 days SMA')
 add_bollinger = st.sidebar.checkbox('Add Bollinger Bands')
 add_pe_ratio_chart = st.sidebar.checkbox('Add P/E Ratio Bar Chart')
 add_beta_chart = st.sidebar.checkbox('Add Beta Bar Chart')
 add_volume_chart = st.sidebar.checkbox('Add Volume Comparison')
 compare_with_sp500 = st.sidebar.checkbox('Compare with S&P 500 (^GSPC)')
-chart_type = st.sidebar.selectbox('Select chart type', ['Line', 'Candlestick'], index=0)  # Default: Line
+add_balance_sheet = st.sidebar.checkbox('Show Balance Sheet')
 
 # Add 20 days SMA to the first graph
 if add_sma:
@@ -48,6 +49,12 @@ if add_bollinger:
         window=20).std()
     stock_data['Lower'] = stock_data['Close'].rolling(window=20).mean() - 2 * stock_data['Close'].rolling(
         window=20).std()
+
+if add_balance_sheet:
+    bs_ticker = yf.Ticker(selected_stock)
+    bs_data = bs_ticker.info.balance_sheet()
+    bs_df = pd.DataFrame(bs_data)
+    st.table(bs_df)
 
 # Plot selected stock and analysis on the first graph
 fig_stock = go.Figure()
