@@ -53,7 +53,7 @@ if add_bollinger:
 
 if add_balance_sheet:
     bs_ticker = yf.Ticker(selected_stock)
-    bs_data = bs_ticker.info.balance_sheet()
+    bs_data = bs_ticker.balance_sheet()
     bs_df = pd.DataFrame(bs_data)
     st.table(bs_df)
 
