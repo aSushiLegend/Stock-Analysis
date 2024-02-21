@@ -58,6 +58,12 @@ if add_balance_sheet:
     bs_df = pd.DataFrame(balancesheet)
     st.table(bs_df)
 
+if add_income_statement:
+    ticker_object = yf.Ticker('AAPL')
+    incomestatement = ticker_object.financials
+    is_df = pd.DataFrame(balancesheet)
+    st.table(is_df)
+
 # Plot selected stock and analysis on the first graph
 fig_stock = go.Figure()
 
