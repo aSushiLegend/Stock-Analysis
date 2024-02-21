@@ -38,6 +38,7 @@ add_beta_chart = st.sidebar.checkbox('Add Beta Bar Chart')
 add_volume_chart = st.sidebar.checkbox('Add Volume Comparison')
 compare_with_sp500 = st.sidebar.checkbox('Compare with S&P 500 (^GSPC)')
 add_balance_sheet = st.sidebar.checkbox('Show Balance Sheet')
+add_income_statement = st.sidebar.checkbox('Show Income Statement')
 print("Balance_sheet")
 
 # Add 20 days SMA to the first graph
