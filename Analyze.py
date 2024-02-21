@@ -39,7 +39,9 @@ add_volume_chart = st.sidebar.checkbox('Add Volume Comparison')
 compare_with_sp500 = st.sidebar.checkbox('Compare with S&P 500 (^GSPC)')
 add_balance_sheet = st.sidebar.checkbox('Show Balance Sheet')
 add_income_statement = st.sidebar.checkbox('Show Income Statement')
+add_dividends = st.sidebar.checkbox('Show Dividends')
 print("Balance_sheet")
+print(selected_stock)
 
 # Add 20 days SMA to the first graph
 if add_sma:
@@ -52,14 +54,20 @@ if add_bollinger:
     stock_data['Lower'] = stock_data['Close'].rolling(window=20).mean() - 2 * stock_data['Close'].rolling(
         window=20).std()
 
+if add_dividends:
+    ticker_object = yf.Ticker(selected_stock)
+    dividends = ticker_object.dividends
+    d_df = pd.DataFrame(dividends)
+    st.table(d_df)
+
 if add_balance_sheet:
-    ticker_object = yf.Ticker('AAPL')
+    ticker_object = yf.Ticker(selected_stock)
     balancesheet = ticker_object.balancesheet
     bs_df = pd.DataFrame(balancesheet)
     st.table(bs_df)
 
 if add_income_statement:
-    ticker_object = yf.Ticker('AAPL')
+    ticker_object = yf.Ticker(selected_stock)
     incomestatement = ticker_object.financials
     is_df = pd.DataFrame(incomestatement)
     st.table(is_df)
