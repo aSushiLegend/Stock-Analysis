@@ -54,7 +54,7 @@ if add_bollinger:
 if add_balance_sheet:
     ticker_object = yf.Ticker('AAPL')
     balancesheet = ticker_object.balancesheet
-    bs_df = df.DataFrame(balancesheet)
+    bs_df = pd.DataFrame(balancesheet)
     st.table(bs_df)
 
 # Plot selected stock and analysis on the first graph
